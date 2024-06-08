@@ -1,0 +1,12 @@
+services:
+  app:
+    build:
+      context: ../../client
+    ports:
+      - '443:443'
+    env_file: ../../client/.env
+    healthcheck:
+      test: ['CMD-SHELL', 'curl --insecure -sS https://localhost || exit 1']
+      interval: 10s
+      timeout: 5s
+      retries: 3

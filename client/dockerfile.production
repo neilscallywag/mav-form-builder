@@ -1,0 +1,11 @@
+# Stage 1: Builder
+FROM node:20.11.1-alpine3.19 AS builder
+WORKDIR /app
+COPY . .
+RUN npm install 
+RUN npm run build
+
+# The final stage can simply copy the built files to a local directory
+FROM alpine:latest AS final
+WORKDIR /output
+COPY --from=builder /app/dist /output
